@@ -8,101 +8,73 @@
 #include "dma.h"
 
 /**
- * @brief   DMA initialization function
- * @note    Basic initialization
- *
- * @param   DMA_Num:        1 or 2
- *          DMA_Channel:    DMAx_Channely   where: x= 1 or 2 , y= 1 ..7 for DMA1 and 1 ..5 for DMA2
- *          Peripheral_Adr: peripheral address
- *          Memory_Adr:     memory address
- *          Size:           Buffer size(no. of data to transfer)
- *          Psize:          DMA_PERIPHERAL_DATA_8BIT
- *                          DMA_PERIPHERAL_DATA_16BIT
- *                          DMA_PERIPHERAL_DATA_32BIT
- *          Msize:          DMA_MEMORY_DATA_8BIT
- *                          DMA_MEMORY_DATA_16BIT
- *                          DMA_MEMORY_DATA_32BIT
- *          Prio:           DMA_PRIORITY_LOW
- *                          DMA_PRIORITY_MEDIUM
- *                          DMA_PRIORITY_HIGH
- *                          DMA_PRIORITY_VERY_HIGH
- *          P_inc:          DMA_PERIPHERAL_INCREMENT_E
- *                          DMA_PERIPHERAL_INCREMENT_D
- *          M_inc:          DMA_MEMORY_INCREMENT_E
- *                          DMA_MEMORY_INCREMENT_D
- *          Circular_M:     DMA_CIRCULAR_MODE_E
- *                          DMA_CIRCULAR_MODE_D
- *          M2M:            DMA_M2M_E
- *                          DMA_M2M_D
- *
+ * @brief   DMA1 Channel3 initialization function
+ * @note    Used for data transfer between two memory buffers
+ * @param   None
  * @retval  None
  */
-void DMA_Init(uint8_t DMA_Num, DMA_Channel_TypeDef * DMA_Channel, const uint32_t * Peripheral_Adr, const uint32_t * Memory_Adr,const uint32_t Size,
-		      const uint32_t Psize, const uint32_t Msize, const uint32_t Prio, const uint32_t P_inc, const uint32_t M_inc, const uint8_t Circular_M,
-		      const uint8_t M2M, const uint8_t Dir )
-{
-  /* Enable clock for DMA1 or DM2 */
-	 if(DMA_Num == 1)
-	     RCC ->AHBENR |= RCC_AHBENR_DMA1EN;
-	 else if(DMA_Num == 2)
-			 RCC ->AHBENR |= RCC_AHBENR_DMA1EN;
- /* disable channel, since this registers must not be written when the channel is enabled */
-	DMA_ChannelDisable(DMA_Channel);
 
- /* Set address for peripheral */
+void DMA1_Channel3_Init(void)
+{
+  /* Enable clock for DMA1*/
+  RCC ->AHBENR |= RCC_AHBENR_DMA1EN;
+
+  /* disable channel, since this registers must not be written when the channel is enabled */
+  DMA_ChannelDisable(DMA1_Channel3);
+
+  /* Set Peripheral size 32-bits (10)*/
+  DMA1_Channel3 ->CCR   &= ~DMA_CCR1_PSIZE;
+  DMA1_Channel3 ->CCR   |= DMA_CCR1_PSIZE_1;
+
+  /* Set Memory size 32-bits (10)*/
+  DMA1_Channel3 ->CCR   &= ~DMA_CCR1_MSIZE;
+  DMA1_Channel3 ->CCR   |= DMA_CCR1_MSIZE_1;
+
+  /* Set Channel priority Very high (11)*/
+  DMA1_Channel3 ->CCR   |= DMA_CCR1_PL;
+
+  /* Enable Peripheral increment mode (1) */
+  DMA1_Channel3 ->CCR   |= DMA_CCR1_PINC;
+
+  /* Enable memory increment mode (1)*/
+  DMA1_Channel3 ->CCR   |= DMA_CCR1_MINC;
+
+  /* Enable M2M Mode (1) */
+  DMA1_Channel3 ->CCR   |= DMA_CCR1_MEM2MEM;
+
+  /* Data transfer direction Read from memory (1)*/
+  DMA1_Channel3 ->CCR   |= DMA_CCR1_DIR;
+
+  /* Enable Transfer complete interrupt */
+  DMA1_Channel3 ->CCR   |= DMA_CCR1_TCIE;
+
+	__ASM("NOP");
+	__ASM("NOP");
+	__ASM("NOP");
+	__ASM("NOP");
+}
+
+
+/*
+ * @brief   DMA Channel set addresses function
+ * @note    Sets the addresses of the memory and peripheral ports,
+ *          and number of data items to be transfered in a specific channel
+ * @param   DMA_Channel, Peripheral_Adr, Memory_Adr, size
+ * @retval  None
+ */
+void DMA_Channel_Set_Addresses(DMA_Channel_TypeDef *DMA_Channel, const uint32_t * Peripheral_Adr,
+                                uint32_t * Memory_Adr, const uint32_t size)
+{
+    /* Set address for peripheral */
 	DMA_Channel ->CPAR   = (uint32_t)Peripheral_Adr;
 
- /* Set address for memory */
+    /* Set address for memory */
 	DMA_Channel ->CMAR   = (uint32_t)Memory_Adr;
 
- /* Set no. of data to transfer */
-	DMA_Channel ->CNDTR  = Size;
-
- /* Set Peripheral size, 00: 8-bits & 01: 16-bits & 10: 32-bits & 11: Reserved */
-	DMA_Channel ->CCR   &= ~DMA_CCR1_PSIZE;
-	if(Psize != 0)DMA_Channel ->CCR   |= Psize;
-
- /* Set Memory size, 00: 8-bits & 01: 16-bits & 10: 32-bits & 11: Reserved*/
-	DMA_Channel ->CCR   &= ~DMA_CCR1_MSIZE;
-	if(Msize != 0)DMA_Channel ->CCR   |= Msize;
-
- /* Set Channel priority, 00: Low & 01: Medium & 10: High & 11: Very high */
-	DMA_Channel ->CCR   &= ~DMA_CCR1_PL;
-	if(Prio != 0)DMA_Channel ->CCR   |= Prio;
-
- /* 1:Enable/0:Disable Peripheral increment mode */
-	if(P_inc == 0)DMA_Channel ->CCR   &= ~DMA_CCR1_PINC;
-	else DMA_Channel ->CCR   |= DMA_CCR1_PINC;
-
- /* 1:Enable/0:Disable memory increment mode */
-	if(M_inc == 0)DMA_Channel ->CCR   &= ~DMA_CCR1_MINC;
-	else DMA_Channel ->CCR   |= DMA_CCR1_MINC;
-
-if(M2M == 0)
-{
- /* Disable M2M Mode */
-	DMA_Channel ->CCR   &= ~DMA_CCR1_MEM2MEM;
- /* 1:Enable/0:Disable Circular mode*/
-	if(Circular_M == 0)DMA_Channel ->CCR   &= ~DMA_CCR1_CIRC;
-	else DMA_Channel ->CCR   |= DMA_CCR1_CIRC;
+    /* Set no. of data to transfer */
+	DMA_Channel ->CNDTR  = size;
 }
-else
-{
- /* Enable M2M Mode */
-	DMA_Channel ->CCR   |= DMA_CCR1_MEM2MEM;
-}
- /* Data transfer direction, 0: Read from peripheral , 1: Read from memory*/
-	if(Dir == 0)DMA_Channel ->CCR   &= ~DMA_CCR1_DIR;
-	else DMA_Channel ->CCR   |= DMA_CCR1_DIR;
 
- /* Enable Transfer complete interrupt */
-	DMA_Channel ->CCR   |= DMA_CCR1_TCIE;
-
-	__ASM("NOP");
-	__ASM("NOP");
-	__ASM("NOP");
-	__ASM("NOP");
-}
 
 /**
  * @brief   Enable DMA

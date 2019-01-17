@@ -75,9 +75,8 @@ int main(void)
     EXTI_Init_PB();
     NVIC_Init();
 
-    DMA_Init(1, DMA1_Channel3, dstBuffer, srcBuffer, BUFFER_SIZE, DMA_PERIPHERAL_DATA_32BIT, DMA_MEMORY_DATA_32BIT,
-    		 DMA_PRIORITY_VERY_HIGH, DMA_PERIPHERAL_INCREMENT_E, DMA_MEMORY_INCREMENT_E, DMA_CIRCULAR_MODE_D,
-			 DMA_M2M_E, DMA_READ_FROM_MEMORY);
+    DMA1_Channel3_Init();
+    DMA_Channel_Set_Addresses(DMA1_Channel3, dstBuffer, srcBuffer, BUFFER_SIZE);
 
     /* Initialize source buffer */
     for (int idx = 0; idx < BUFFER_SIZE; idx++)
@@ -86,6 +85,7 @@ int main(void)
     }
     Yellow_LED_BITBAND = 1;
     __enable_irq();
+    SysTick_Delay(50);
 
       /* Signal start of coping data, by turning on Yellow LED */
     	Yellow_LED_BITBAND = 0;
