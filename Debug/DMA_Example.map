@@ -33,7 +33,7 @@ Discarded input sections
  .debug_aranges
                 0x00000000       0x20 ./src/src/memcpy.o
  .debug_ranges  0x00000000       0x10 ./src/src/memcpy.o
- .debug_line    0x00000000      0x21e ./src/src/memcpy.o
+ .debug_line    0x00000000      0x21d ./src/src/memcpy.o
  .debug_str     0x00000000      0x22d ./src/src/memcpy.o
  .comment       0x00000000       0x7d ./src/src/memcpy.o
  .debug_frame   0x00000000       0x38 ./src/src/memcpy.o
@@ -475,16 +475,16 @@ OUTPUT(DMA_Example.elf elf32-littlearm)
  .debug_ranges  0x000000d8       0x78 ./Libraries/System_stm32f10x/src/stm32f1xx_it.o
  .debug_ranges  0x00000150       0x28 ./Libraries/System_stm32f10x/src/system_stm32f10x.o
 
-.debug_line     0x00000000     0x12e1
- .debug_line    0x00000000      0x288 ./src/src/SysTick.o
- .debug_line    0x00000288      0x217 ./src/src/dma.o
- .debug_line    0x0000049f      0x1ce ./src/src/exti.o
- .debug_line    0x0000066d      0x1e1 ./src/src/gpio.o
- .debug_line    0x0000084e      0x20d ./src/src/nvic.o
- .debug_line    0x00000a5b      0x24b ./src/main.o
- .debug_line    0x00000ca6       0x9a ./Libraries/System_stm32f10x/src/startup_stm32f10x_md.o
- .debug_line    0x00000d40      0x324 ./Libraries/System_stm32f10x/src/stm32f1xx_it.o
- .debug_line    0x00001064      0x27d ./Libraries/System_stm32f10x/src/system_stm32f10x.o
+.debug_line     0x00000000     0x12e2
+ .debug_line    0x00000000      0x289 ./src/src/SysTick.o
+ .debug_line    0x00000289      0x217 ./src/src/dma.o
+ .debug_line    0x000004a0      0x1ce ./src/src/exti.o
+ .debug_line    0x0000066e      0x1e1 ./src/src/gpio.o
+ .debug_line    0x0000084f      0x20d ./src/src/nvic.o
+ .debug_line    0x00000a5c      0x24b ./src/main.o
+ .debug_line    0x00000ca7       0x9a ./Libraries/System_stm32f10x/src/startup_stm32f10x_md.o
+ .debug_line    0x00000d41      0x324 ./Libraries/System_stm32f10x/src/stm32f1xx_it.o
+ .debug_line    0x00001065      0x27d ./Libraries/System_stm32f10x/src/system_stm32f10x.o
 
 .debug_str      0x00000000      0xa26
  .debug_str     0x00000000      0x5bd ./src/src/SysTick.o

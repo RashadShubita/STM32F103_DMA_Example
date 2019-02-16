@@ -1,15 +1,14 @@
 /*******************************************************************************
  * @file    memcpy.c
- * @author  Ahmed Eldeep
- * @email   ahmed@almohandes.org
- * @website http://almohandes.org/stm32
- * @date    22.04.2018
+ * @author  Rashad Shubita
+ * @email   shubitarashad@gmail.com
+ * @date    15.02.2019
  *
  * @brief   Copy data between two memory buffers
  * @note
  *
 @verbatim
-Copyright (C) Almohandes.org, 2018
+Copyright (C) 2019, Rashad Shubita
 
 This program is free software: you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
@@ -28,86 +27,19 @@ this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stddef.h>
 #include "memcpy.h"
 
-/**
- * @addtogroup stm32_examples
- * @{
- */
 
-/**
- * @defgroup memcpy
- * @brief
- * @{
- */
-
-/**
- * @defgroup memcpy_private_typedefs
- * @{
- */
-
-/**
- * @}
- */
-
-/**
- * @defgroup memcpy_private_defines
- * @{
- */
+/* Private typedef -----------------------------------------------------------*/
+/* Private define ------------------------------------------------------------*/
 // use #define USE_INDEX_BY_INDEX or USE_POINTER
 #define USE_POINTER
 
-/**
- * @}
- */
+/* Private macro -------------------------------------------------------------*/
+/* Private constants ---------------------------------------------------------*/
+/* Private variables ---------------------------------------------------------*/
+/* Private function prototypes -----------------------------------------------*/
+/* Private functions ---------------------------------------------------------*/
 
-/**
- * @defgroup memcpy_private_macros
- * @{
- */
-
-/**
- * @}
- */
-
-/**
- * @defgroup memcpy_private_constants
- * @{
- */
-
-/**
- * @}
- */
-
-/**
- * @defgroup memcpy_private_variables
- * @{
- */
-
-/**
- * @}
- */
-
-/**
- * @defgroup memcpy_private_function_prototypes
- * @{
- */
-
-/**
- * @}
- */
-
-/**
- * @defgroup memcpy_private_functions
- * @{
- */
-
-/**
- * @}
- */
-
-/**
- * @defgroup memcpy_exported_functions
- * @{
- */
+/* Exported functions --------------------------------------------------------*/
 
 /**
  * @brief   Copy data between two memory buffers
@@ -158,13 +90,3 @@ ReturnStatus_Type memcpy32(const uint32_t * src,
   return returnStatus;
 }
 
-
-/**
- * @}
- */
-/**
- * @}
- */
-/**
- * @}
- */

@@ -1,15 +1,14 @@
 /*******************************************************************************
  * @file    memcpy.h
- * @author  Ahmed Eldeep
- * @email   ahmed@almohandes.org
- * @website http://almohandes.org/stm32
- * @date    22.04.2018
+ * @author  Rashad Shubita
+ * @email   shubitarashad@gmail.com
+ * @date    15.02.2019
  *
  * @brief   Copy data between two memory buffers
  * @note
  *
 @verbatim
-Copyright (C) Almohandes.org, 2018
+Copyright (C) 2019, Rashad Shubita
 
 This program is free software: you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
@@ -36,21 +35,10 @@ extern "C" {
 /* Includes */
 #include "stm32f10x.h"
 
-/**
- * @addtogroup stm32_examples
- * @{
- */
 
-/**
- * @addtogroup memcpy
- * @{
- */
 
-/**
- * @defgroup memcpy_exported_typedefs
- * @{
- */
 
+/* Exported typedef ----------------------------------------------------------*/
 /**
  * @brief   Return type
  */
@@ -60,42 +48,14 @@ typedef enum
   RETURN_STATUS_NOT_OK = 1u
 } ReturnStatus_Type;
 
-/**
- * @}
- */
 
-/**
- * @defgroup memcpy_exported_defines
- * @{
- */
 
-/**
- * @}
- */
+/* Exported define -----------------------------------------------------------*/
+/* Exported macro ------------------------------------------------------------*/
+/* Exported constants --------------------------------------------------------*/
 
-/**
- * @defgroup memcpy_exported_macros
- * @{
- */
 
-/**
- * @}
- */
-
-/**
- * @defgroup memcpy_exported_constants
- * @{
- */
-
-/**
- * @}
- */
-
-/**
- * @defgroup memcpy_exported_functions
- * @{
- */
-
+/* Exported functions --------------------------------------------------------*/
 /**
  * @brief   Copy data between two memory buffers
  * @note
@@ -105,15 +65,6 @@ typedef enum
 ReturnStatus_Type memcpy32(const uint32_t * src,
     uint32_t * dst, const uint32_t size);
 
-/**
- * @}
- */
-/**
- * @}
- */
-/**
- * @}
- */
 
 /* C++ detection */
 #ifdef __cplusplus
